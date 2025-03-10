@@ -14,7 +14,8 @@ const NavBar = () => {
             <input
               type="text"
               placeholder="Search..."
-              className="w-full border py-2 px-4"
+              // className="w-full border py-2 px-4"
+              className="w-full py-2 px-4 border border-gray-300 rounded-full focus:outline-none focus:ring-0 focus:border-gray-400"
             />
             <FaSearch className="absolute top-3 right-3 text-red-500"></FaSearch>
           </form>
