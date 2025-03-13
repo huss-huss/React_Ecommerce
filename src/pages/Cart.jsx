@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import EmptyCart from "../assets/Images/emptycart.png";
 import { FaTrashAlt } from "react-icons/fa";
 import Modal from "../components/Modal";
 import ChangeAddress from "../components/ChangeAddress";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeFromCart,
+} from "../redux/cartSlice";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const [address, setAddress] = useState("main street, 123");
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
@@ -45,18 +51,27 @@ const Cart = () => {
                   <div className="flex space-x-12 items-center">
                     <p className="font-extralight">${product.price}</p>
                     <div className="flex items-center justify-center border border-gray-200">
-                      <button className="text-xl font-bold px-1.5 border-r  border-gray-200">
+                      <button
+                        className="text-xl font-bold px-1.5 border-r  border-gray-200"
+                        onClick={() => dispatch(decreaseQuantity(product.id))}
+                      >
                         -
                       </button>
                       <p className="text-xl px-2">{product.quantity}</p>
-                      <button className="text-xl px-1 border-l  border-gray-200">
+                      <button
+                        className="text-xl px-1 border-l  border-gray-200"
+                        onClick={() => dispatch(increaseQuantity(product.id))}
+                      >
                         +
                       </button>
                     </div>
                     <p className="font-extralight">
                       ${(product.price * product.quantity).toFixed(2)}
                     </p>
-                    <button className="text-red-500 hover:text-red-700">
+                    <button
+                      className="text-red-500 hover:text-red-700"
+                      onClick={() => dispatch(removeFromCart(product.id))}
+                    >
                       <FaTrashAlt />
                     </button>
                   </div>
