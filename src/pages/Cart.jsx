@@ -9,12 +9,14 @@ import {
   increaseQuantity,
   removeFromCart,
 } from "../redux/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [address, setAddress] = useState("main street, 123");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
   return (
     <div className="container mx-auto py-8 min-h-96 px-4 md:px-16 lg:px-24">
       {cart.products.length > 0 ? (
@@ -104,7 +106,10 @@ const Cart = () => {
                 <span>${cart.totalPrice.toFixed(2)}</span>
               </div>
 
-              <button className="w-full bg-red-600 text-white py-2 hover:bg-red-800">
+              <button
+                className="w-full bg-red-600 text-white py-2 hover:bg-red-800"
+                onClick={() => navigate("/checkout")}
+              >
                 Proceed to Checkout
               </button>
             </div>
